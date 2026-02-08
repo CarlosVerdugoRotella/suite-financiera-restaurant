@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suite Financiera Restaurant</title>
+  
+  <style>
+    :root {
+      --bg-primary: #FAFBFC;
+      --bg-card: #FFFFFF;
+      --border-default: #E5E7EB;
+      --text-primary: #111827;
+      --text-secondary: #6B7280;
+      --primary: #1E40AF;
+      --primary-hover: #1E3A8A;
+      --success: #047857;
+      --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.08);
+      --radius-lg: 8px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+               'Helvetica Neue', Arial, sans-serif;
+  background: 
+    linear-gradient(135deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.95) 100%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23111827" width="100" height="100"/><circle fill="%231F2937" cx="50" cy="50" r="40" opacity="0.1"/></svg>');
+  background-size: cover, 100px 100px;
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+    
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      color: white;
+    }
+    
+    .header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    
+    .tool-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    
+    .tool-icon {
+      font-size: 48px;
+      line-height: 1;
+    }
+    
+    .tool-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .tool-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .tool-btn {
+      margin-top: 8px;
+      height: 40px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .tool-card:nth-child(1) .tool-btn {
+      background: #1E40AF;
+      color: white;
+    }
+    
+    .tool-card:nth-child(1) .tool-btn:hover {
+      background: #1E3A8A;
+    }
+    
+    .tool-card:nth-child(2) .tool-btn {
+      background: #047857;
+      color: white;
+    }
+    
+    .tool-card:nth-child(2) .tool-btn:hover {
+      background: #065f46;
+    }
+    
+    .tip-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+    
+    .tip-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .tip-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .tip-text strong {
+      color: var(--primary);
+    }
+    
+    @media (max-width: 640px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">
+      <h1>🍽️ Suite Financiera Restaurant</h1>
+      <p>Herramientas integradas para planificación y análisis</p>
+    </header>
+    
+    <div class="tools-grid">
+      <a href="calculadora-ingresos-m2.html" class="tool-card">
+        <div class="tool-icon">📐</div>
+        <div class="tool-title">Calculadora Ingresos m²</div>
+        <div class="tool-desc">
+          Calcula la capacidad de tu local (sillas, mesas) y proyecta ingresos 
+          mensuales a 5 años según metros cuadrados, ocupación y ticket promedio.
+        </div>
+        <button class="tool-btn">Abrir Calculadora →</button>
+      </a>
+      
+      <a href="calculadora-inversion.html" class="tool-card">
+        <div class="tool-icon">💰</div>
+        <div class="tool-title">Calculadora Inversión</div>
+        <div class="tool-desc">
+          Modela la inversión con tiers, calcula ROI, TIR, VAN y payback para 
+          inversionistas y controlador con proyecciones a 10 años.
+        </div>
+        <button class="tool-btn">Abrir Calculadora →</button>
+      </a>
+    </div>
+    
+    <div class="tip-box">
+      <div class="tip-icon">💡</div>
+      <div class="tip-text">
+        <strong>Flujo recomendado:</strong> Completa primero la 
+        <strong>Calculadora Ingresos m²</strong>, luego usa el botón 
+        <strong>"Continuar a Inversión →"</strong> para transferir 
+        automáticamente los ingresos proyectados.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
