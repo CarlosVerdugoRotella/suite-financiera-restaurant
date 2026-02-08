@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora Financiera v2.29</title>
-  
+
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  
+
   <!-- html2pdf.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  
+
   <style>
     /* ==================== VARIABLES CSS ==================== */
     :root {
@@ -21,14 +21,14 @@
       --text-primary: #111827;
       --text-secondary: #6B7280;
       --text-tertiary: #9CA3AF;
-      
+
       /* Acentos Funcionales */
       --primary: #1E40AF;
       --primary-hover: #1E3A8A;
       --success: #047857;
       --warning: #D97706;
       --error: #DC2626;
-      
+
       /* Diferenciadores Tier */
       --tier-1: #4F46E5;
       --tier-2: #0891B2;
@@ -36,32 +36,32 @@
       --tier-4: #DB2777;
       --tier-5: #059669;
       --controlador: #047857;
-      
+
       /* Sombras */
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
       --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.06);
       --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.08);
-      
+
       /* Espaciado */
       --space-xs: 4px;
       --space-sm: 8px;
       --space-md: 12px;
       --space-lg: 16px;
       --space-xl: 20px;
-      
+
       /* Border Radius */
       --radius-sm: 4px;
       --radius-md: 6px;
       --radius-lg: 8px;
     }
-    
+
     /* ==================== RESET Y BASE ==================== */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
                    'Helvetica Neue', Arial, sans-serif;
@@ -71,7 +71,7 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
-    
+
     /* ==================== LAYOUT PRINCIPAL ==================== */
     .header {
       background: var(--bg-card);
@@ -82,7 +82,7 @@
       z-index: 100;
       box-shadow: var(--shadow-sm);
     }
-    
+
     .header-content {
       max-width: 1440px;
       margin: 0 auto;
@@ -90,19 +90,19 @@
       justify-content: space-between;
       align-items: center;
     }
-    
+
     .header h1 {
       font-size: 20px;
       font-weight: 700;
       letter-spacing: -0.01em;
       color: var(--primary);
     }
-    
+
     .header-actions {
       display: flex;
       gap: var(--space-md);
     }
-    
+
     .container {
       max-width: 1440px;
       margin: 0 auto;
@@ -112,7 +112,7 @@
       padding: var(--space-xl);
       min-height: calc(100vh - 90px);
     }
-    
+
     /* ==================== SIDEBAR ==================== */
     .sidebar {
       height: calc(100vh - 130px);
@@ -122,24 +122,24 @@
       top: 110px;
       padding-right: 8px;
     }
-    
+
     .sidebar::-webkit-scrollbar {
       width: 6px;
     }
-    
+
     .sidebar::-webkit-scrollbar-track {
       background: transparent;
     }
-    
+
     .sidebar::-webkit-scrollbar-thumb {
       background: var(--border-default);
       border-radius: 3px;
     }
-    
+
     .sidebar::-webkit-scrollbar-thumb:hover {
       background: var(--text-tertiary);
     }
-    
+
     .input-section {
       background: var(--bg-card);
       border-radius: var(--radius-lg);
@@ -147,7 +147,7 @@
       margin-bottom: var(--space-lg);
       box-shadow: var(--shadow-md);
     }
-    
+
     .section-title {
       font-size: 11px;
       font-weight: 500;
@@ -158,15 +158,15 @@
       padding-bottom: var(--space-sm);
       border-bottom: 1px solid var(--border-default);
     }
-    
+
     .input-group {
       margin-bottom: var(--space-md);
     }
-    
+
     .input-group:last-child {
       margin-bottom: 0;
     }
-    
+
     .input-group label {
       display: block;
       font-size: 12px;
@@ -174,7 +174,7 @@
       color: var(--text-secondary);
       margin-bottom: var(--space-xs);
     }
-    
+
     .input-group input,
     .input-group select {
       width: 100%;
@@ -189,51 +189,51 @@
       transition: border-color 0.15s ease, box-shadow 0.15s ease;
       font-variant-numeric: tabular-nums;
     }
-    
+
     .input-group input:focus,
     .input-group select:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
     }
-    
+
     .input-group input.error {
       border-color: var(--error);
     }
-    
+
     .input-group input.warning {
       border-color: var(--warning);
     }
-    
+
     .input-error-msg {
       font-size: 11px;
       color: var(--error);
       margin-top: 4px;
       display: none;
     }
-    
+
     .input-error-msg.show {
       display: block;
     }
-    
+
     .input-warning-msg {
       font-size: 11px;
       color: var(--warning);
       margin-top: 4px;
       display: none;
     }
-    
+
     .input-warning-msg.show {
       display: block;
     }
-    
+
     .input-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-md);
     }
-    
-    /* Tier Colapsable */
+
+    /* ==================== Tier Colapsable ==================== */
     .tier-section {
       background: var(--bg-card);
       border-radius: var(--radius-lg);
@@ -242,12 +242,23 @@
       box-shadow: var(--shadow-md);
       border-left: 3px solid var(--tier-1);
     }
-    
-    .tier-section[data-tier-index="1"] { border-left-color: var(--tier-2); }
-    .tier-section[data-tier-index="2"] { border-left-color: var(--tier-3); }
-    .tier-section[data-tier-index="3"] { border-left-color: var(--tier-4); }
-    .tier-section[data-tier-index="4"] { border-left-color: var(--tier-5); }
-    
+
+    .tier-section[data-tier-index="1"] {
+      border-left-color: var(--tier-2);
+    }
+
+    .tier-section[data-tier-index="2"] {
+      border-left-color: var(--tier-3);
+    }
+
+    .tier-section[data-tier-index="3"] {
+      border-left-color: var(--tier-4);
+    }
+
+    .tier-section[data-tier-index="4"] {
+      border-left-color: var(--tier-5);
+    }
+
     .tier-header {
       display: flex;
       justify-content: space-between;
@@ -256,7 +267,7 @@
       user-select: none;
       margin-bottom: var(--space-md);
     }
-    
+
     .tier-title {
       font-size: 11px;
       font-weight: 600;
@@ -264,12 +275,12 @@
       letter-spacing: 0.05em;
       color: var(--text-secondary);
     }
-    
+
     .tier-actions {
       display: flex;
       gap: var(--space-sm);
     }
-    
+
     .tier-btn-collapse,
     .tier-btn-delete {
       width: 24px;
@@ -285,26 +296,26 @@
       justify-content: center;
       transition: background 0.15s;
     }
-    
+
     .tier-btn-collapse:hover,
     .tier-btn-delete:hover {
       background: #F3F4F6;
     }
-    
+
     .tier-btn-delete:hover {
       color: var(--error);
     }
-    
+
     .tier-content {
       max-height: 1000px;
       overflow: hidden;
       transition: max-height 0.3s ease;
     }
-    
+
     .tier-content.collapsed {
       max-height: 0;
     }
-    
+
     .btn-add-tier {
       width: 100%;
       height: 40px;
@@ -318,20 +329,20 @@
       transition: all 0.15s;
       margin-bottom: var(--space-lg);
     }
-    
+
     .btn-add-tier:hover {
       border-color: var(--primary);
       color: var(--primary);
       background: rgba(30, 64, 175, 0.05);
     }
-    
+
     /* ==================== PANEL RESULTADOS ==================== */
     .results-panel {
       display: flex;
       flex-direction: column;
       gap: var(--space-xl);
     }
-    
+
     /* Métricas Clave */
     .metrics-summary {
       background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);
@@ -342,7 +353,7 @@
       top: 110px;
       z-index: 50;
     }
-    
+
     .metrics-title {
       font-size: 11px;
       font-weight: 700;
@@ -351,41 +362,41 @@
       color: var(--text-secondary);
       margin-bottom: var(--space-md);
     }
-    
+
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: var(--space-lg);
     }
-    
+
     .metric-item {
       text-align: center;
     }
-    
+
     .metric-label {
       font-size: 11px;
       color: var(--text-secondary);
       margin-bottom: var(--space-xs);
       display: block;
     }
-    
+
     .metric-value {
       font-size: 20px;
       font-weight: 700;
       font-variant-numeric: tabular-nums;
       color: var(--text-primary);
     }
-    
+
     .metric-value.highlight {
       color: var(--success);
     }
-    
+
     .metric-subtext {
       font-size: 10px;
       color: var(--text-tertiary);
       margin-top: 2px;
     }
-    
+
     /* Cards Resultados */
     .result-card {
       background: var(--bg-card);
@@ -395,25 +406,36 @@
       border-left: 3px solid var(--tier-1);
       transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
-    
+
     .result-card:hover {
       box-shadow: var(--shadow-lg);
       transform: translateY(-1px);
     }
-    
-    .result-card[data-tier-index="1"] { border-left-color: var(--tier-2); }
-    .result-card[data-tier-index="2"] { border-left-color: var(--tier-3); }
-    .result-card[data-tier-index="3"] { border-left-color: var(--tier-4); }
-    .result-card[data-tier-index="4"] { border-left-color: var(--tier-5); }
-    
+
+    .result-card[data-tier-index="1"] {
+      border-left-color: var(--tier-2);
+    }
+
+    .result-card[data-tier-index="2"] {
+      border-left-color: var(--tier-3);
+    }
+
+    .result-card[data-tier-index="3"] {
+      border-left-color: var(--tier-4);
+    }
+
+    .result-card[data-tier-index="4"] {
+      border-left-color: var(--tier-5);
+    }
+
     .result-card.controlador-card {
       border-left-color: var(--controlador);
     }
-    
+
     .card-header {
       margin-bottom: var(--space-lg);
     }
-    
+
     .card-tier-label {
       font-size: 11px;
       font-weight: 600;
@@ -422,74 +444,74 @@
       color: var(--text-secondary);
       margin-bottom: var(--space-xs);
     }
-    
+
     .card-title {
       font-size: 13px;
       font-weight: 600;
       color: var(--text-primary);
     }
-    
+
     .card-title .amount {
       color: var(--success);
       font-size: 14px;
     }
-    
+
     .card-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-lg);
       margin-bottom: var(--space-lg);
     }
-    
+
     .card-metric {
       background: #F9FAFB;
       padding: var(--space-md);
       border-radius: var(--radius-md);
     }
-    
+
     .card-metric-label {
       font-size: 11px;
       color: var(--text-secondary);
       margin-bottom: var(--space-xs);
       display: block;
     }
-    
+
     .card-metric-value {
       font-size: 16px;
       font-weight: 600;
       font-variant-numeric: tabular-nums;
       color: var(--text-primary);
     }
-    
+
     .card-metric-value.highlight {
       color: var(--success);
     }
-    
+
     .card-metric-value.text-warning-legal {
       color: var(--warning);
       background: #FEF3C7;
       padding: 2px 6px;
       border-radius: 3px;
     }
-    
+
     .card-metric-subtext {
       font-size: 11px;
       color: var(--text-tertiary);
       margin-top: 2px;
     }
-    
+
     .card-metric-subtext.warning-legal {
       color: var(--warning);
       font-weight: 600;
     }
-    
+
     /* Detalle Mensual */
     .detalle-toggle {
       margin-top: var(--space-lg);
       padding-top: var(--space-lg);
       border-top: 1px solid var(--border-default);
     }
-    
+
     .btn-toggle-detalle {
       background: transparent;
       border: 1px solid var(--border-default);
@@ -501,29 +523,29 @@
       cursor: pointer;
       transition: all 0.15s;
     }
-    
+
     .btn-toggle-detalle:hover {
       border-color: var(--primary);
       color: var(--primary);
     }
-    
+
     .detalle-content {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease;
     }
-    
+
     .detalle-content.expanded {
       max-height: 2000px;
       margin-top: var(--space-lg);
     }
-    
+
     .detalle-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 12px;
     }
-    
+
     .detalle-table th {
       text-align: left;
       padding: 8px;
@@ -532,22 +554,22 @@
       color: var(--text-secondary);
       border-bottom: 2px solid var(--border-default);
     }
-    
+
     .detalle-table td {
       padding: 8px;
       border-bottom: 1px solid #F3F4F6;
       font-variant-numeric: tabular-nums;
     }
-    
+
     .detalle-table tr:nth-child(even) {
       background: #FAFBFC;
     }
-    
+
     .detalle-table tr.payback-row {
       background: #ECFDF5;
       font-weight: 600;
     }
-    
+
     .btn-load-more {
       margin-top: var(--space-md);
       width: 100%;
@@ -561,13 +583,13 @@
       cursor: pointer;
       transition: all 0.15s;
     }
-    
+
     .btn-load-more:hover {
       background: #F9FAFB;
       border-color: var(--primary);
       color: var(--primary);
     }
-    
+
     /* Gráfico */
     .chart-container {
       background: var(--bg-card);
@@ -576,14 +598,14 @@
       box-shadow: var(--shadow-md);
       height: 350px;
     }
-    
+
     .chart-title {
       font-size: 13px;
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: var(--space-lg);
     }
-    
+
     /* ==================== BOTONES ==================== */
     .btn {
       height: 34px;
@@ -596,74 +618,74 @@
       cursor: pointer;
       transition: background 0.15s ease;
     }
-    
+
     .btn-primary {
       background: var(--primary);
       color: white;
     }
-    
+
     .btn-primary:hover:not(:disabled) {
       background: var(--primary-hover);
     }
-    
+
     .btn-primary:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-    
+
     .btn-secondary {
       background: var(--bg-card);
       color: var(--text-primary);
       border: 1px solid var(--border-default);
     }
-    
+
     .btn-secondary:hover {
       background: #F9FAFB;
     }
-    
+
     /* ==================== UTILIDADES ==================== */
     .text-warning {
       color: var(--warning);
     }
-    
+
     .text-error {
       color: var(--error);
     }
-    
+
     .hidden {
       display: none;
     }
-    
+
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 1024px) {
       .container {
         grid-template-columns: 1fr;
       }
-      
+
       .sidebar {
         position: static;
         height: auto;
         overflow-y: visible;
       }
-      
+
       .metrics-summary {
         position: static;
       }
-      
+
       .metrics-grid {
         grid-template-columns: repeat(3, 1fr);
       }
-      
+
       .card-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
-    
+
     @media (max-width: 640px) {
       .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-      
+
       .card-grid {
         grid-template-columns: 1fr;
       }
@@ -675,21 +697,20 @@
   <!-- ==================== HEADER ==================== -->
   <header class="header">
     <div class="header-content">
-      <h1>📊 Modelo Financiero - <span id="displayNombreProyecto">Proyecto Sin Nombre</span></h1>
+      <h1>💼 Modelo Financiero - <span id="displayNombreProyecto">Proyecto Sin Nombre</span></h1>
       <div class="header-actions">
-        <button class="btn btn-secondary" onclick="volverAIngresos()">← Editar Ingresos</button>
         <button class="btn btn-secondary" id="btnLimpiar">Limpiar</button>
-        <button class="btn btn-primary" id="btnExportar">Exportar PDF</button>
+        <button class="btn btn-primary" id="btnExportar">💾 Exportar PDF</button>
       </div>
     </div>
   </header>
 
   <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
   <div class="container" id="mainContainer">
-    
+
     <!-- ==================== SIDEBAR INPUTS ==================== -->
     <aside class="sidebar">
-      
+
       <!-- PROYECTO -->
       <section class="input-section">
         <div class="section-title">Proyecto</div>
@@ -714,24 +735,24 @@
       <section class="input-section">
         <div class="section-title">Ingresos Mensuales por Año</div>
         <div class="input-group">
-          <label for="ingresoAño1">Año 1 ($)</label>
-          <input type="text" id="ingresoAño1" class="money-input" value="0">
+          <label for="ingresoAo1">Año 1 ($)</label>
+          <input type="text" id="ingresoAo1" class="money-input" value="0">
         </div>
         <div class="input-group">
-          <label for="ingresoAño2">Año 2 ($)</label>
-          <input type="text" id="ingresoAño2" class="money-input" value="50000000">
+          <label for="ingresoAo2">Año 2 ($)</label>
+          <input type="text" id="ingresoAo2" class="money-input" value="50000000">
         </div>
         <div class="input-group">
-          <label for="ingresoAño3">Año 3 ($)</label>
-          <input type="text" id="ingresoAño3" class="money-input" value="100000000">
+          <label for="ingresoAo3">Año 3 ($)</label>
+          <input type="text" id="ingresoAo3" class="money-input" value="100000000">
         </div>
         <div class="input-group">
-          <label for="ingresoAño4">Año 4 ($)</label>
-          <input type="text" id="ingresoAño4" class="money-input" value="150000000">
+          <label for="ingresoAo4">Año 4 ($)</label>
+          <input type="text" id="ingresoAo4" class="money-input" value="150000000">
         </div>
         <div class="input-group">
-          <label for="ingresoAño5">Año 5+ (Estabilización) ($)</label>
-          <input type="text" id="ingresoAño5" class="money-input" value="150000000">
+          <label for="ingresoAo5">Año 5 - Estabilización ($)</label>
+          <input type="text" id="ingresoAo5" class="money-input" value="150000000">
         </div>
       </section>
 
@@ -750,7 +771,6 @@
 
       <!-- TIERS DINÁMICOS -->
       <div id="tiersContainer"></div>
-      
       <button class="btn-add-tier" id="btnAddTier">+ Agregar Tier</button>
 
       <!-- CONTROLADOR -->
@@ -763,7 +783,7 @@
         <div class="input-group">
           <label for="ctrlTipoHolder">Tipo de Holder</label>
           <select id="ctrlTipoHolder">
-            <option value="persona_natural">Persona Natural</option>
+            <option value="personanatural">Persona Natural</option>
             <option value="empresa">Empresa</option>
           </select>
         </div>
@@ -786,15 +806,15 @@
 
     <!-- ==================== PANEL RESULTADOS ==================== -->
     <main class="results-panel">
-      
+
       <!-- MÉTRICAS CLAVE -->
       <section class="metrics-summary">
-        <div class="metrics-title">📌 Métricas Clave</div>
+        <div class="metrics-title">Métricas Clave</div>
         <div class="metrics-grid">
           <div class="metric-item">
             <span class="metric-label">Capital Levantado</span>
             <div class="metric-value highlight" id="metricCapital">$0</div>
-            <div class="metric-subtext" id="metricCapitalPct">—% equity</div>
+            <div class="metric-subtext" id="metricCapitalPct">— % equity</div>
           </div>
           <div class="metric-item">
             <span class="metric-label">Payback Promedio</span>
@@ -831,9 +851,8 @@
       <section class="result-card controlador-card" id="controladorResults">
         <div class="card-header">
           <div class="card-tier-label">CONTROLADOR</div>
-          <h2 class="card-title">Participación Mayoritaria · <span class="amount" id="ctrlResultPct">—%</span></h2>
+          <h2 class="card-title">Participación Mayoritaria • <span class="amount" id="ctrlResultPct">—%</span></h2>
         </div>
-        
         <div class="card-grid">
           <div class="card-metric">
             <span class="card-metric-label">Valor Participación</span>
@@ -879,14 +898,14 @@
     let tiers = [];
     let nextTierId = 1;
     let vanChart = null;
-    
+
     // ==================== UTILIDADES ====================
-    
+
     function cleanNumber(str) {
       if (!str) return 0;
       return parseFloat(str.toString().replace(/\./g, '').replace(/[^0-9]/g, '')) || 0;
     }
-    
+
     function formatMoney(num) {
       return new Intl.NumberFormat('es-CL', {
         style: 'currency',
@@ -894,18 +913,11 @@
         maximumFractionDigits: 0
       }).format(num);
     }
-    
-    function formatMoneyShort(num) {
-      if (num >= 1000000) {
-        return '$' + (num / 1000000).toFixed(1) + 'M';
-      }
-      return formatMoney(num);
-    }
-    
+
     function formatPercent(num, decimals = 1) {
       return (num * 100).toFixed(decimals) + '%';
     }
-    
+
     function debounce(func, delay) {
       let timeout;
       return function(...args) {
@@ -913,22 +925,22 @@
         timeout = setTimeout(() => func.apply(this, args), delay);
       };
     }
-    
-    function getAñoFromMes(mes) {
+
+    function getAoFromMes(mes) {
       return Math.ceil(mes / 12);
     }
-    
+
     // ==================== VALIDACIONES ====================
-    
+
     function validarEquity() {
       const pctInv = parseFloat(document.getElementById('pctInversores').value) || 0;
       const pctCtrl = parseFloat(document.getElementById('pctControlador').value) || 0;
       const suma = pctInv + pctCtrl;
-      
+
       const errorEl = document.getElementById('errorEquity');
       const inputInv = document.getElementById('pctInversores');
       const inputCtrl = document.getElementById('pctControlador');
-      
+
       if (Math.abs(suma - 100) > 0.01) {
         errorEl.classList.add('show');
         inputInv.classList.add('error');
@@ -941,59 +953,815 @@
         return true;
       }
     }
-    
-    // ==================== DETECCIÓN Y CARGA DESDE CALCULADORA INGRESOS ====================
-    
-    function detectarYCargarIngresos() {
-      try {
-        const datosStr = localStorage.getItem('suite_ingresos_transfer');
-        if (!datosStr) return false;
-        
-        const datos = JSON.parse(datosStr);
-        
-        // Validar estructura
-        if (!datos.ingresosMensuales || datos.ingresosMensuales.length !== 5) {
-          console.warn('Datos de ingresos incompletos');
-          return false;
-        }
-        
-        // Mostrar banner de confirmación
-        const confirmacion = confirm(
-          '📊 DATOS DETECTADOS desde Calculadora Ingresos m²\n\n' +
-          `Ingresos mensuales proyectados:\n` +
-          `· Año 1: ${formatMoney(datos.ingresosMensuales[0])}\n` +
-          `· Año 2: ${formatMoney(datos.ingresosMensuales[1])}\n` +
-          `· Año 3: ${formatMoney(datos.ingresosMensuales[2])}\n` +
-          `· Año 4: ${formatMoney(datos.ingresosMensuales[3])}\n` +
-          `· Año 5: ${formatMoney(datos.ingresosMensuales[4])}\n\n` +
-          `Capacidad: ${datos.totalSillas} sillas | ${datos.comensalesDia} comensales/día\n\n` +
-          '¿Cargar estos valores en la calculadora?'
-        );
-        
-        if (!confirmacion) return false;
-        
-        // Cargar valores en inputs
-        document.getElementById('ingresoAño1').value = datos.ingresosMensuales[0].toLocaleString('es-CL');
-        document.getElementById('ingresoAño2').value = datos.ingresosMensuales[1].toLocaleString('es-CL');
-        document.getElementById('ingresoAño3').value = datos.ingresosMensuales[2].toLocaleString('es-CL');
-        document.getElementById('ingresoAño4').value = datos.ingresosMensuales[3].toLocaleString('es-CL');
-        document.getElementById('ingresoAño5').value = datos.ingresosMensuales[4].toLocaleString('es-CL');
-        
-        // Mostrar banner sticky
-        mostrarBannerIngresos(datos);
-        
-        // Calcular con nuevos datos
-        calcularTodo();
-        
-        return true;
-      } catch (error) {
-        console.error('Error al cargar ingresos:', error);
-        return false;
+
+    // ==================== GESTIÓN DE TIERS ====================
+
+    function agregarTier() {
+      if (tiers.length >= 6) {
+        alert('Máximo 6 tiers permitidos');
+        return;
+      }
+
+      const tier = {
+        id: nextTierId++,
+        nombre: `Tier ${tiers.length + 1}`,
+        cantidad: 1,
+        monto: 10000000,
+        mesInversion: 0,
+        mesRetornos: 12,
+        tipoHolder: 'personanatural',
+        retencion: 10,
+        collapsed: false
+      };
+
+      tiers.push(tier);
+      renderTiers();
+      calcularTodo();
+    }
+
+    function eliminarTier(id) {
+      if (tiers.length <= 1) {
+        alert('Debe haber al menos 1 tier');
+        return;
+      }
+
+      if (!confirm('¿Eliminar este tier?')) return;
+
+      tiers = tiers.filter(t => t.id !== id);
+      renderTiers();
+      calcularTodo();
+    }
+
+    function toggleCollapseTier(id) {
+      const tier = tiers.find(t => t.id === id);
+      if (tier) {
+        tier.collapsed = !tier.collapsed;
+        renderTiers();
       }
     }
-    
+
+    function actualizarTier(id, field, value) {
+      const tier = tiers.find(t => t.id === id);
+      if (!tier) return;
+
+      tier[field] = value;
+
+      // Validar mesRetornos > mesInversion
+      if (field === 'mesRetornos' || field === 'mesInversion') {
+        if (tier.mesRetornos <= tier.mesInversion) {
+          tier.mesRetornos = tier.mesInversion + 1;
+          renderTiers();
+          alert('El mes de inicio de retornos debe ser posterior al mes de inversión. Se ajustó automáticamente.');
+        }
+      }
+
+      calcularTodo();
+    }
+
+    function renderTiers() {
+      const container = document.getElementById('tiersContainer');
+      container.innerHTML = '';
+
+      tiers.forEach((tier, index) => {
+        const tierEl = document.createElement('section');
+        tierEl.className = 'tier-section';
+        tierEl.setAttribute('data-tier-index', index);
+
+        // Validar meses
+        const mesWarning = tier.mesRetornos <= tier.mesInversion;
+
+        tierEl.innerHTML = `
+          <div class="tier-header" onclick="toggleCollapseTier(${tier.id})">
+            <div class="tier-title">${tier.nombre} (Tier ${index + 1})</div>
+            <div class="tier-actions">
+              <button class="tier-btn-collapse" onclick="event.stopPropagation(); toggleCollapseTier(${tier.id})">
+                ${tier.collapsed ? '▼' : '▲'}
+              </button>
+              <button class="tier-btn-delete" onclick="event.stopPropagation(); eliminarTier(${tier.id})">
+                ×
+              </button>
+            </div>
+          </div>
+          <div class="tier-content ${tier.collapsed ? 'collapsed' : ''}">
+            <div class="input-group">
+              <label>Nombre del Tier</label>
+              <input type="text" value="${tier.nombre}" onchange="actualizarTier(${tier.id}, 'nombre', this.value)">
+            </div>
+            <div class="input-group">
+              <label>Cantidad de Inversionistas</label>
+              <input type="number" min="1" step="1" value="${tier.cantidad}" 
+                     onchange="actualizarTier(${tier.id}, 'cantidad', parseInt(this.value) || 1)">
+            </div>
+            <div class="input-group">
+              <label>Inversión Individual ($)</label>
+              <input type="text" class="money-input" value="${tier.monto.toLocaleString('es-CL')}" 
+                     data-tier-id="${tier.id}" data-field="monto">
+            </div>
+            <div class="input-group">
+              <label>Mes de Inversión</label>
+              <input type="number" min="0" max="24" step="1" value="${tier.mesInversion}" 
+                     class="${mesWarning ? 'warning' : ''}"
+                     onchange="actualizarTier(${tier.id}, 'mesInversion', parseInt(this.value) || 0)">
+            </div>
+            <div class="input-group">
+              <label>Mes Inicio Retornos</label>
+              <input type="number" min="0" max="36" step="1" value="${tier.mesRetornos}" 
+                     class="${mesWarning ? 'warning' : ''}"
+                     onchange="actualizarTier(${tier.id}, 'mesRetornos', parseInt(this.value) || 0)">
+              <div class="input-warning-msg ${mesWarning ? 'show' : ''}">
+                Debe ser mayor al mes de inversión
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Tipo de Holder</label>
+              <select onchange="actualizarTier(${tier.id}, 'tipoHolder', this.value)">
+                <option value="personanatural" ${tier.tipoHolder === 'personanatural' ? 'selected' : ''}>Persona Natural</option>
+                <option value="empresa" ${tier.tipoHolder === 'empresa' ? 'selected' : ''}>Empresa</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>% Retención Impuestos (%)</label>
+              <input type="number" min="0" max="99" step="0.1" value="${tier.retencion}" 
+                     onchange="actualizarTier(${tier.id}, 'retencion', parseFloat(this.value) || 0)">
+            </div>
+          </div>
+        `;
+
+        container.appendChild(tierEl);
+      });
+
+      // Re-aplicar formateo a money inputs
+      attachMoneyInputs();
+    }
+
+    function attachMoneyInputs() {
+      const moneyInputs = document.querySelectorAll('.money-input[data-tier-id]');
+      moneyInputs.forEach(input => {
+        // Remover listeners anteriores clonando
+        const newInput = input.cloneNode(true);
+        input.parentNode.replaceChild(newInput, input);
+
+        newInput.addEventListener('input', debounce((e) => {
+          const value = cleanNumber(e.target.value);
+          e.target.value = value.toLocaleString('es-CL');
+
+          const tierId = e.target.getAttribute('data-tier-id');
+          const field = e.target.getAttribute('data-field');
+
+          if (tierId && field) {
+            actualizarTier(parseInt(tierId), field, value);
+          }
+        }, 400));
+      });
+    }
+
+    // ==================== CÁLCULOS MATEMÁTICOS ====================
+
+    function calcularTIR(flujos, maxIter = 100, tolerancia = 0.0001) {
+      if (flujos.length === 0) return null;
+
+      let r = 0.1;
+      for (let iter = 0; iter < maxIter; iter++) {
+        let van = 0;
+        let vanDerivada = 0;
+
+        flujos.forEach(f => {
+          const t = f.mes / 12;
+          van += f.monto / Math.pow(1 + r, t);
+          vanDerivada += -t * f.monto / Math.pow(1 + r, t + 1);
+        });
+
+        if (Math.abs(van) < tolerancia) return r;
+        if (vanDerivada === 0) break;
+
+        r = r - van / vanDerivada;
+
+        if (r < -0.99) r = -0.99;
+        if (r > 10) r = 10;
+      }
+
+      return null;
+    }
+
+    function calcularVAN(flujos, tasaDescuentoAnual) {
+      let van = 0;
+      flujos.forEach(f => {
+        const t = f.mes / 12;
+        van += f.monto / Math.pow(1 + tasaDescuentoAnual, t);
+      });
+      return van;
+    }
+
+    function getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacion, retencion) {
+      const ao = getAoFromMes(mes);
+
+      let ingresoMes;
+      if (ao === 1) ingresoMes = ingresos.ao1;
+      else if (ao === 2) ingresoMes = ingresos.ao2;
+      else if (ao === 3) ingresoMes = ingresos.ao3;
+      else if (ao === 4) ingresoMes = ingresos.ao4;
+      else ingresoMes = ingresos.ao5;
+
+      const utilidadMes = ingresoMes * margenNeto;
+      const repartirMes = utilidadMes * pctDistribuir;
+      const dividendoBruto = repartirMes * pctParticipacion;
+      const dividendoNeto = dividendoBruto * (1 - retencion);
+
+      return { bruto: dividendoBruto, neto: dividendoNeto };
+    }
+
+    // ==================== CÁLCULO PRINCIPAL ====================
+
+    function calcularTodo() {
+      try {
+        if (!validarEquity()) return;
+
+        const pctInversores = (parseFloat(document.getElementById('pctInversores').value) / 100) || 0;
+        const pctControlador = (parseFloat(document.getElementById('pctControlador').value) / 100) || 0;
+
+        const ingresos = {
+          ao1: cleanNumber(document.getElementById('ingresoAo1').value),
+          ao2: cleanNumber(document.getElementById('ingresoAo2').value),
+          ao3: cleanNumber(document.getElementById('ingresoAo3').value),
+          ao4: cleanNumber(document.getElementById('ingresoAo4').value),
+          ao5: cleanNumber(document.getElementById('ingresoAo5').value)
+        };
+
+        const margenNeto = (parseFloat(document.getElementById('margenNeto').value) / 100) || 0;
+        const pctDistribuir = (parseFloat(document.getElementById('pctDistribuir').value) / 100) || 0;
+        const tasaDescuento = (parseFloat(document.getElementById('tasaDescuento').value) / 100) || 0.12;
+
+        const controlador = {
+          capitalInicial: cleanNumber(document.getElementById('ctrlCapitalInicial').value),
+          retencion: (parseFloat(document.getElementById('ctrlRetencion').value) / 100) || 0
+        };
+
+        if (tiers.length === 0) return;
+
+        // Calcular capital levantado
+        const capitalLevantado = tiers.reduce((sum, t) => sum + (t.cantidad * t.monto), 0);
+        const valorEmpresa = pctInversores > 0 ? capitalLevantado / pctInversores : 0;
+        const valorControlador = valorEmpresa * pctControlador;
+
+        // Calcular resultados por tier
+        const resultadosTiers = tiers.map(tier => {
+          const pctParticipacionInd = valorEmpresa > 0 ? tier.monto / valorEmpresa : 0;
+          const retencionDec = tier.retencion / 100;
+
+          const divAo5 = getDividendoMensual(60, ingresos, margenNeto, pctDistribuir, pctParticipacionInd, retencionDec);
+
+          // NUEVO: Calcular retiro promedio primeros 5 años
+          let sumaRetiros5Aos = 0;
+          for (let mes = tier.mesRetornos; mes <= 60; mes++) {
+            const div = getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacionInd, retencionDec);
+            sumaRetiros5Aos += div.neto;
+          }
+          const mesesRetornos5Aos = Math.max(1, 60 - tier.mesRetornos + 1);
+          const retiroPromedio5Aos = sumaRetiros5Aos / mesesRetornos5Aos;
+
+          const roiAnual = tier.monto > 0 ? (divAo5.neto * 12) / tier.monto : 0;
+
+          // Calcular payback
+          let paybackMeses = null;
+          let acumulado = 0;
+          for (let mes = tier.mesRetornos; mes <= 120; mes++) {
+            const div = getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacionInd, retencionDec);
+            acumulado += div.neto;
+            if (acumulado >= tier.monto) {
+              paybackMeses = mes - tier.mesInversion;
+              break;
+            }
+          }
+
+          // Calcular TIR y VAN
+          const flujos = [{ mes: tier.mesInversion, monto: -tier.monto }];
+          for (let mes = tier.mesRetornos; mes <= 120; mes++) {
+            const div = getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacionInd, retencionDec);
+            flujos.push({ mes: mes, monto: div.neto });
+          }
+
+          const tir = calcularTIR(flujos);
+          const van = calcularVAN(flujos, tasaDescuento);
+
+          // Detalle mensual
+          const detalleMensual = [];
+          let acumNeto = 0;
+          for (let mes = tier.mesRetornos; mes <= 120; mes++) {
+            const div = getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacionInd, retencionDec);
+            acumNeto += div.neto;
+
+            const ao = getAoFromMes(mes);
+            const mesEnAo = mes - (ao - 1) * 12;
+
+            detalleMensual.push({
+              mes: mes,
+              aoMes: `${ao}.${mesEnAo}`,
+              bruto: div.bruto,
+              neto: div.neto,
+              acumulado: acumNeto,
+              esPayback: paybackMeses && (mes - tier.mesInversion === paybackMeses)
+            });
+          }
+
+          return {
+            tier,
+            pctParticipacion: pctParticipacionInd,
+            divAo5,
+            retiroPromedio5Aos,
+            roiAnual,
+            paybackMeses,
+            tir,
+            van,
+            detalleMensual,
+            capitalTier: tier.cantidad * tier.monto
+          };
+        });
+
+        // Calcular resultados controlador
+        const pctParticipacionCtrl = pctControlador;
+        const retencionCtrlDec = controlador.retencion / 100;
+        const divCtrlAo5 = getDividendoMensual(60, ingresos, margenNeto, pctDistribuir, pctParticipacionCtrl, retencionCtrlDec);
+        const utilidadAnualCtrl = divCtrlAo5.neto * 12;
+
+        let tirCtrl = null;
+        let vanCtrl = null;
+        if (controlador.capitalInicial > 0) {
+          const flujosCtrl = [{ mes: 0, monto: -controlador.capitalInicial }];
+          for (let mes = 1; mes <= 120; mes++) {
+            const div = getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacionCtrl, retencionCtrlDec);
+            flujosCtrl.push({ mes: mes, monto: div.neto });
+          }
+          tirCtrl = calcularTIR(flujosCtrl);
+          vanCtrl = calcularVAN(flujosCtrl, tasaDescuento);
+        }
+
+        // Calcular promedios ponderados
+        const paybackPromedio = resultadosTiers.reduce((sum, r) => {
+          return sum + (r.paybackMeses || 120) * r.capitalTier;
+        }, 0) / capitalLevantado;
+
+        const roiPromedio = resultadosTiers.reduce((sum, r) => {
+          return sum + r.roiAnual * r.capitalTier;
+        }, 0) / capitalLevantado;
+
+        const tirPromedio = resultadosTiers.reduce((sum, r) => {
+          return sum + (r.tir || 0) * r.capitalTier;
+        }, 0) / capitalLevantado;
+
+        const vanTotal = resultadosTiers.reduce((sum, r) => sum + (r.van || 0), 0) + (vanCtrl || 0);
+
+        // Actualizar métricas resumen
+        document.getElementById('metricCapital').textContent = formatMoney(capitalLevantado);
+        document.getElementById('metricCapitalPct').textContent = formatPercent(pctInversores) + ' equity';
+        document.getElementById('metricPayback').textContent = Math.round(paybackPromedio) + ' meses';
+        document.getElementById('metricROI').textContent = formatPercent(roiPromedio);
+        document.getElementById('metricTIR').textContent = tirPromedio !== null ? formatPercent(tirPromedio) : 'N/C';
+        document.getElementById('metricVAN').textContent = formatMoney(vanTotal);
+        document.getElementById('metricValor').textContent = formatMoney(valorEmpresa);
+
+        // Colorear métricas
+        const metricPayback = document.getElementById('metricPayback');
+        metricPayback.classList.remove('text-warning', 'text-error');
+        if (paybackPromedio > 48) {
+          metricPayback.classList.add('text-warning');
+        }
+
+        const metricROI = document.getElementById('metricROI');
+        metricROI.classList.remove('text-error');
+        if (roiPromedio < 0.10) {
+          metricROI.classList.add('text-error');
+        }
+
+        // Renderizar resultados
+        renderTiersResults(resultadosTiers, ingresos, margenNeto, pctDistribuir, valorEmpresa);
+
+        // Actualizar controlador
+        document.getElementById('ctrlResultPct').textContent = formatPercent(pctControlador);
+        document.getElementById('ctrlResultPctSub').textContent = formatPercent(pctControlador) + ' empresa';
+        document.getElementById('ctrlResultValor').textContent = formatMoney(valorControlador);
+        document.getElementById('ctrlResultRetiroNeto').textContent = formatMoney(divCtrlAo5.neto);
+        document.getElementById('ctrlResultRetiroBruto').textContent = 'Bruto: ' + formatMoney(divCtrlAo5.bruto);
+        document.getElementById('ctrlResultAnual').textContent = formatMoney(utilidadAnualCtrl);
+        document.getElementById('ctrlResultTIR').textContent = tirCtrl !== null ? formatPercent(tirCtrl) : 'N/A';
+        document.getElementById('ctrlResultVAN').textContent = vanCtrl !== null ? formatMoney(vanCtrl) : 'N/A';
+
+        // Renderizar gráfico
+        renderChart(resultadosTiers, 
+          controlador.capitalInicial > 0 ? { 
+            tir: tirCtrl, 
+            van: vanCtrl, 
+            ingresos, 
+            margenNeto, 
+            pctDistribuir, 
+            pctParticipacionCtrl, 
+            retencionCtrlDec 
+          } : null, 
+          tasaDescuento
+        );
+
+      } catch (error) {
+        console.error('Error en cálculos:', error);
+      }
+    }
+
+    // ==================== RENDERIZAR RESULTADOS TIERS ====================
+
+    function renderTiersResults(resultados, ingresos, margenNeto, pctDistribuir, valorEmpresa) {
+      const container = document.getElementById('tiersResultsContainer');
+      container.innerHTML = '';
+
+      resultados.forEach((res, index) => {
+        const tierCard = document.createElement('section');
+        tierCard.className = 'result-card';
+        tierCard.setAttribute('data-tier-index', index);
+
+        // Warning amarillo si participación < 2%
+        const warningLegal = res.pctParticipacion < 0.02;
+
+        tierCard.innerHTML = `
+          <div class="card-header">
+            <div class="card-tier-label">${res.tier.nombre.toUpperCase()}</div>
+            <h2 class="card-title">Por inversionista • <span class="amount">${formatMoney(res.tier.monto)}</span></h2>
+          </div>
+          <div class="card-grid">
+            <div class="card-metric">
+              <span class="card-metric-label">Inversión Individual</span>
+              <div class="card-metric-value">${formatMoney(res.tier.monto)}</div>
+            </div>
+            <div class="card-metric">
+              <span class="card-metric-label">Inicio Retornos</span>
+              <div class="card-metric-value">Mes ${res.tier.mesRetornos}</div>
+            </div>
+            <div class="card-metric">
+              <span class="card-metric-label">Retiro Mensual NETO (Año 5)</span>
+              <div class="card-metric-value highlight">${formatMoney(res.divAo5.neto)}</div>
+              <div class="card-metric-subtext">Bruto: ${formatMoney(res.divAo5.bruto)}</div>
+            </div>
+            <div class="card-metric">
+              <span class="card-metric-label">Retiro Prom. 5 Años</span>
+              <div class="card-metric-value highlight">${formatMoney(res.retiroPromedio5Aos)}</div>
+              <div class="card-metric-subtext">Promedio mensual</div>
+            </div>
+            <div class="card-metric">
+              <span class="card-metric-label">ROI Anual NETO</span>
+              <div class="card-metric-value ${res.roiAnual < 0.10 ? 'text-error' : ''}">${formatPercent(res.roiAnual)}</div>
+              <div class="card-metric-subtext">Año 5 estabilizado</div>
+            </div>
+            <div class="card-metric">
+              <span class="card-metric-label">Payback Real</span>
+              <div class="card-metric-value ${res.paybackMeses > 48 ? 'text-warning' : ''}">
+                ${res.paybackMeses ? res.paybackMeses + ' meses' : '>120 meses'}
+              </div>
+              <div class="card-metric-subtext">Desde inversión</div>
+            </div>
+            <div class="card-metric">
+              <span class="card-metric-label">% Participación Indiv.</span>
+              <div class="card-metric-value ${warningLegal ? 'text-warning-legal' : ''}">${formatPercent(res.pctParticipacion, 2)}</div>
+              <div class="card-metric-subtext ${warningLegal ? 'warning-legal' : ''}">
+                ${warningLegal ? '⚠️ Menor a 2% (ley chilena)' : 'Del total empresa'}
+              </div>
+            </div>
+            <div class="card-metric">
+              <span class="card-metric-label">TIR</span>
+              <div class="card-metric-value">${res.tir !== null ? formatPercent(res.tir) : 'N/C'}</div>
+              <div class="card-metric-subtext">10 años</div>
+            </div>
+            <div class="card-metric">
+              <span class="card-metric-label">VAN</span>
+              <div class="card-metric-value ${res.van > 0 ? 'highlight' : 'text-error'}">${formatMoney(res.van)}</div>
+              <div class="card-metric-subtext">Valor creado</div>
+            </div>
+          </div>
+          <div class="detalle-toggle">
+            <button class="btn-toggle-detalle" onclick="toggleDetalleMensual(${res.tier.id})">Ver detalle mensual</button>
+          </div>
+          <div class="detalle-content" id="detalle-${res.tier.id}">
+            <table class="detalle-table">
+              <thead>
+                <tr>
+                  <th>Mes</th>
+                  <th>Año.Mes</th>
+                  <th>Dividendo Bruto</th>
+                  <th>Dividendo Neto</th>
+                  <th>Acumulado Neto</th>
+                </tr>
+              </thead>
+              <tbody id="detalle-body-${res.tier.id}"></tbody>
+            </table>
+            <button class="btn-load-more hidden" id="load-more-${res.tier.id}" onclick="loadMoreDetalle(${res.tier.id})">
+              Cargar más (siguiente 24 meses)
+            </button>
+          </div>
+        `;
+
+        container.appendChild(tierCard);
+
+        // Guardar detalle mensual en dataset
+        tierCard.dataset.detalle = JSON.stringify(res.detalleMensual);
+      });
+    }
+
+    // ==================== DETALLE MENSUAL ====================
+
+    let detalleState = {};
+
+    function toggleDetalleMensual(tierId) {
+      const detalleEl = document.getElementById(`detalle-${tierId}`);
+      const btn = detalleEl.previousElementSibling;
+
+      if (!detalleState[tierId]) {
+        detalleState[tierId] = { expanded: false, loaded: 0 };
+      }
+
+      if (!detalleState[tierId].expanded) {
+        detalleEl.classList.add('expanded');
+        btn.textContent = 'Ocultar detalle';
+        detalleState[tierId].expanded = true;
+
+        if (detalleState[tierId].loaded === 0) {
+          loadMoreDetalle(tierId);
+        }
+      } else {
+        detalleEl.classList.remove('expanded');
+        btn.textContent = 'Ver detalle mensual';
+        detalleState[tierId].expanded = false;
+      }
+    }
+
+    function loadMoreDetalle(tierId) {
+      // Buscar la card correspondiente
+      const allCards = document.querySelectorAll('[data-tier-index]');
+      let targetCard = null;
+
+      allCards.forEach(c => {
+        const detalle = JSON.parse(c.dataset.detalle || '[]');
+        if (detalle.length > 0) {
+          const tier = tiers.find(t => t.id === tierId);
+          if (tier && detalle[0].mes === tier.mesRetornos) {
+            targetCard = c;
+          }
+        }
+      });
+
+      if (!targetCard) return;
+
+      const detalleMensual = JSON.parse(targetCard.dataset.detalle);
+      const tbody = document.getElementById(`detalle-body-${tierId}`);
+      const loadMoreBtn = document.getElementById(`load-more-${tierId}`);
+
+      if (!detalleState[tierId]) {
+        detalleState[tierId] = { expanded: true, loaded: 0 };
+      }
+
+      const start = detalleState[tierId].loaded;
+      const end = Math.min(start + 24, detalleMensual.length);
+
+      for (let i = start; i < end; i++) {
+        const d = detalleMensual[i];
+        const row = tbody.insertRow();
+        if (d.esPayback) row.className = 'payback-row';
+
+        row.innerHTML = `
+          <td>${d.mes}</td>
+          <td>${d.aoMes}</td>
+          <td>${formatMoney(d.bruto)}</td>
+          <td>${formatMoney(d.neto)}</td>
+          <td>${formatMoney(d.acumulado)}</td>
+        `;
+      }
+
+      detalleState[tierId].loaded = end;
+
+      if (end >= detalleMensual.length) {
+        loadMoreBtn.classList.add('hidden');
+      } else {
+        loadMoreBtn.classList.remove('hidden');
+      }
+    }
+
+    // ==================== GRÁFICO ====================
+
+    function renderChart(resultadosTiers, controladorData, tasaDescuento) {
+      const ctx = document.getElementById('vanChart');
+
+      // Datos trimestrales (cada 3 meses)
+      const trimestres = [];
+      for (let mes = 0; mes <= 120; mes += 3) {
+        trimestres.push(mes);
+      }
+
+      const datasets = [];
+
+      // Dataset por cada tier
+      resultadosTiers.forEach((res, index) => {
+        const data = trimestres.map(mes => {
+          const flujos = [{ mes: res.tier.mesInversion, monto: -res.tier.monto }];
+          for (let m = res.tier.mesRetornos; m <= mes; m++) {
+            const detail = res.detalleMensual.find(d => d.mes === m);
+            if (detail) {
+              flujos.push({ mes: m, monto: detail.neto });
+            }
+          }
+          return calcularVAN(flujos, tasaDescuento);
+        });
+
+        const colors = ['#4F46E5', '#0891B2', '#7C3AED', '#DB2777', '#059669'];
+
+        datasets.push({
+          label: res.tier.nombre,
+          data: data,
+          borderColor: colors[index % colors.length],
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          tension: 0.3
+        });
+      });
+
+      // Dataset controlador (si tiene capital inicial)
+      if (controladorData) {
+        const dataCtrl = trimestres.map(mes => {
+          const flujos = [{ mes: 0, monto: -cleanNumber(document.getElementById('ctrlCapitalInicial').value) }];
+          for (let m = 1; m <= mes; m++) {
+            const div = getDividendoMensual(
+              m, 
+              controladorData.ingresos, 
+              controladorData.margenNeto, 
+              controladorData.pctDistribuir, 
+              controladorData.pctParticipacionCtrl, 
+              controladorData.retencionCtrlDec
+            );
+            flujos.push({ mes: m, monto: div.neto });
+          }
+          return calcularVAN(flujos, tasaDescuento);
+        });
+
+        datasets.push({
+          label: 'Controlador',
+          data: dataCtrl,
+          borderColor: '#047857',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [5, 5],
+          tension: 0.3
+        });
+      }
+
+      // Destruir chart anterior
+      if (vanChart) {
+        vanChart.destroy();
+      }
+
+      // Crear nuevo chart
+      vanChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: trimestres.map(m => `M${m}`),
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 12,
+                padding: 10,
+                font: {
+                  size: 11
+                }
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(17, 24, 39, 0.95)',
+              titleFont: {
+                size: 12,
+                weight: 600
+              },
+              bodyFont: {
+                size: 12
+              },
+              padding: 10,
+              cornerRadius: 4,
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + formatMoney(context.parsed.y);
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                font: {
+                  size: 11
+                }
+              }
+            },
+            y: {
+              grid: {
+                color: '#F3F4F6'
+              },
+              ticks: {
+                font: {
+                  size: 11
+                },
+                callback: function(value) {
+                  return '$' + (value / 1000000).toFixed(1) + 'M';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // ==================== EXPORT PDF ====================
+
+    function exportarPDF() {
+      const nombreProyecto = document.getElementById('nombreProyecto').value.trim() || 'Proyecto';
+      const fecha = new Date().toLocaleDateString('es-CL');
+
+      const element = document.getElementById('mainContainer');
+
+      const opt = {
+        margin: 10,
+        filename: `modelo-financiero-${nombreProyecto.replace(/\s/g, '-')}-${fecha}.pdf`,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { 
+          scale: 1.5,
+          useCORS: true,
+          logging: false,
+          width: element.scrollWidth,
+          windowWidth: element.scrollWidth
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: 'a4', 
+          orientation: 'portrait',
+          compress: true
+        },
+        pagebreak: { mode: 'avoid-all', css: [] },
+        legacy: true
+      };
+
+      html2pdf().set(opt).from(element).save();
+    }
+
+    // ==================== LIMPIAR ====================
+
+    function limpiarFormulario() {
+      if (!confirm('¿Seguro que deseas limpiar todos los datos? Esta acción no se puede deshacer.')) {
+        return;
+      }
+
+      document.getElementById('nombreProyecto').value = '';
+      document.getElementById('pctInversores').value = 48;
+      document.getElementById('pctControlador').value = 52;
+      document.getElementById('ingresoAo1').value = '0';
+      document.getElementById('ingresoAo2').value = '50.000.000';
+      document.getElementById('ingresoAo3').value = '100.000.000';
+      document.getElementById('ingresoAo4').value = '150.000.000';
+      document.getElementById('ingresoAo5').value = '150.000.000';
+      document.getElementById('margenNeto').value = 25;
+      document.getElementById('pctDistribuir').value = 80;
+      document.getElementById('ctrlCapitalInicial').value = '0';
+      document.getElementById('ctrlRetencion').value = 10;
+      document.getElementById('tasaDescuento').value = 12;
+
+      tiers = [{
+        id: 1,
+        nombre: 'Early Investors',
+        cantidad: 20,
+        monto: 10000000,
+        mesInversion: 0,
+        mesRetornos: 12,
+        tipoHolder: 'personanatural',
+        retencion: 10,
+        collapsed: false
+      }];
+      nextTierId = 2;
+      detalleState = {};
+
+      renderTiers();
+      calcularTodo();
+
+      document.getElementById('displayNombreProyecto').textContent = 'Proyecto Sin Nombre';
+    }
+
+    // ==================== INTEGRACIÓN CON CALCULADORA INGRESOS ====================
+
+    // ✅ FIX #3: Validar banner existente y style duplicado
     function mostrarBannerIngresos(datos) {
-      // Crear banner informativo sticky
+      // Verificar si ya existe un banner
+      const existing = document.getElementById('banner-ingresos-cargados');
+      if (existing) {
+        existing.remove();
+      }
+
       const banner = document.createElement('div');
       banner.id = 'banner-ingresos-cargados';
       banner.style.cssText = `
@@ -1014,17 +1782,21 @@
         max-width: 600px;
         animation: slideDown 0.3s ease;
       `;
-      
+
+      const formatShort = (num) => {
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+        return formatMoney(num);
+      };
+
       banner.innerHTML = `
-        <span style="font-size: 24px;">📊</span>
+        <span style="font-size: 24px;">✓</span>
         <div style="flex: 1;">
           <div style="font-weight: 600; color: #1E40AF; margin-bottom: 4px;">
-            Datos cargados desde Calculadora Ingresos
+            ✅ Datos cargados desde Calculadora Ingresos
           </div>
           <div style="font-size: 12px; color: #6B7280;">
-            ${datos.totalSillas} sillas · ${datos.comensalesDia} comensales/día ·
-            Ingresos desde ${formatMoneyShort(datos.ingresosMensuales[0])} hasta 
-            ${formatMoneyShort(datos.ingresosMensuales[4])}/mes
+            ${datos.totalSillas} sillas • ${datos.comensalesDia} comensales/día • 
+            Ingresos desde ${formatShort(datos.ingresosMensuales[0])} hasta ${formatShort(datos.ingresosMensuales[4])}/mes
           </div>
         </div>
         <button onclick="cerrarBannerIngresos()" style="
@@ -1041,885 +1813,168 @@
           justify-content: center;
           border-radius: 4px;
           transition: background 0.15s;
-        " onmouseover="this.style.background='#F3F4F6'" 
-           onmouseout="this.style.background='transparent'">×</button>
+        " onmouseover="this.style.background='#F3F4F6'" onmouseout="this.style.background='transparent'">
+          ×
+        </button>
       `;
-      
-      // Agregar CSS animación
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translate(-50%, -20px);
+
+      // Verificar si el estilo ya existe
+      if (!document.getElementById('banner-animation-style')) {
+        const style = document.createElement('style');
+        style.id = 'banner-animation-style';
+        style.textContent = `
+          @keyframes slideDown {
+            from { opacity: 0; transform: translate(-50%, -20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
           }
-          to {
-            opacity: 1;
-            transform: translate(-50%, 0);
-          }
-        }
-      `;
-      document.head.appendChild(style);
-      
+        `;
+        document.head.appendChild(style);
+      }
+
       document.body.appendChild(banner);
-      
-      // Auto-cerrar después de 8 segundos
-      setTimeout(() => {
-        cerrarBannerIngresos();
-      }, 8000);
+
+      // Guardar timeout ID para poder cancelarlo
+      if (window.bannerTimeout) clearTimeout(window.bannerTimeout);
+      window.bannerTimeout = setTimeout(cerrarBannerIngresos, 8000);
     }
-    
+
     function cerrarBannerIngresos() {
       const banner = document.getElementById('banner-ingresos-cargados');
       if (banner) {
         banner.style.animation = 'slideDown 0.3s ease reverse';
         setTimeout(() => banner.remove(), 300);
       }
-    }
-    
-    function limpiarDatosTransferencia() {
-      try {
-        localStorage.removeItem('suite_ingresos_transfer');
-        console.log('Datos de transferencia limpiados');
-      } catch (error) {
-        console.error('Error al limpiar localStorage:', error);
+      if (window.bannerTimeout) {
+        clearTimeout(window.bannerTimeout);
+        window.bannerTimeout = null;
       }
     }
-    
+
+    function detectarYCargarIngresos() {
+      try {
+        const datosStr = localStorage.getItem('suiteingresostransfer');
+        if (!datosStr) return false;
+
+        const datos = JSON.parse(datosStr);
+        if (!datos.ingresosMensuales || datos.ingresosMensuales.length !== 5) {
+          console.warn('Datos de ingresos incompletos');
+          return false;
+        }
+
+        const confirmacion = confirm(`📊 DATOS DETECTADOS desde Calculadora Ingresos m²
+
+Ingresos mensuales proyectados:
+• Año 1: ${formatMoney(datos.ingresosMensuales[0])}
+• Año 2: ${formatMoney(datos.ingresosMensuales[1])}
+• Año 3: ${formatMoney(datos.ingresosMensuales[2])}
+• Año 4: ${formatMoney(datos.ingresosMensuales[3])}
+• Año 5: ${formatMoney(datos.ingresosMensuales[4])}
+
+Capacidad: ${datos.totalSillas} sillas • ${datos.comensalesDia} comensales/día
+
+¿Cargar estos valores en la calculadora?`);
+
+        if (!confirmacion) return false;
+
+        // Cargar valores
+        document.getElementById('ingresoAo1').value = datos.ingresosMensuales[0].toLocaleString('es-CL');
+        document.getElementById('ingresoAo2').value = datos.ingresosMensuales[1].toLocaleString('es-CL');
+        document.getElementById('ingresoAo3').value = datos.ingresosMensuales[2].toLocaleString('es-CL');
+        document.getElementById('ingresoAo4').value = datos.ingresosMensuales[3].toLocaleString('es-CL');
+        document.getElementById('ingresoAo5').value = datos.ingresosMensuales[4].toLocaleString('es-CL');
+
+        mostrarBannerIngresos(datos);
+
+        // ✅ FIX #1: ELIMINAR calcularTodo() aquí
+        // Se ejecutará al final del DOMContentLoaded
+
+        return true;
+
+      } catch (error) {
+        console.error('Error al cargar ingresos:', error);
+        return false;
+      }
+    }
+
     function volverAIngresos() {
-      if (confirm('¿Volver a la Calculadora de Ingresos?\n\nLos datos actuales de inversión no se guardarán.')) {
+      if (confirm('¿Volver a la Calculadora de Ingresos m²?')) {
         window.location.href = 'calculadora-ingresos-m2.html';
       }
     }
-    
-    // ==================== GESTIÓN DE TIERS ====================
-    
-    function agregarTier() {
-      if (tiers.length >= 6) {
-        alert('Máximo 6 tiers permitidos');
-        return;
-      }
-      
-      const tier = {
-        id: nextTierId++,
-        nombre: `Tier ${tiers.length + 1}`,
-        cantidad: 1,
+
+    // ==================== INICIALIZACIÓN ====================
+
+    // ✅ FIX #2: Reorganizar orden de ejecución en DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // 1. Inicializar estado
+      tiers = [{
+        id: 1,
+        nombre: 'Early Investors',
+        cantidad: 20,
         monto: 10000000,
         mesInversion: 0,
         mesRetornos: 12,
-        tipoHolder: 'persona_natural',
+        tipoHolder: 'personanatural',
         retencion: 10,
         collapsed: false
-      };
-      
-      tiers.push(tier);
+      }];
+      nextTierId = 2;
+
       renderTiers();
-      calcularTodo();
-    }
-    
-    function eliminarTier(id) {
-      if (tiers.length <= 1) {
-        alert('Debe haber al menos 1 tier');
-        return;
-      }
-      
-      if (!confirm('¿Eliminar este tier?')) return;
-      
-      tiers = tiers.filter(t => t.id !== id);
-      renderTiers();
-      calcularTodo();
-    }
-    
-    function toggleCollapseTier(id) {
-      const tier = tiers.find(t => t.id === id);
-      if (tier) {
-        tier.collapsed = !tier.collapsed;
-        renderTiers();
-      }
-    }
-    
-    function actualizarTier(id, field, value) {
-      const tier = tiers.find(t => t.id === id);
-      if (!tier) return;
-      
-      tier[field] = value;
-      
-      // Validar mesRetornos >= mesInversion
-      if (field === 'mesRetornos' || field === 'mesInversion') {
-        if (tier.mesRetornos < tier.mesInversion) {
-          tier.mesRetornos = tier.mesInversion + 1;
-          renderTiers();
-          alert('El mes de inicio de retornos debe ser posterior al mes de inversión. Se ajustó automáticamente.');
-        }
-      }
-      
-      calcularTodo();
-    }
-    
-    function renderTiers() {
-      const container = document.getElementById('tiersContainer');
-      container.innerHTML = '';
-      
-      tiers.forEach((tier, index) => {
-        const tierEl = document.createElement('section');
-        tierEl.className = 'tier-section';
-        tierEl.setAttribute('data-tier-index', index);
-        
-        // Validar meses
-        const mesWarning = tier.mesRetornos <= tier.mesInversion;
-        
-        tierEl.innerHTML = `
-          <div class="tier-header" onclick="toggleCollapseTier(${tier.id})">
-            <div class="tier-title">${tier.nombre || 'Tier ' + (index + 1)}</div>
-            <div class="tier-actions">
-              <button class="tier-btn-collapse" onclick="event.stopPropagation(); toggleCollapseTier(${tier.id})">
-                ${tier.collapsed ? '▼' : '▲'}
-              </button>
-              <button class="tier-btn-delete" onclick="event.stopPropagation(); eliminarTier(${tier.id})">
-                ×
-              </button>
-            </div>
-          </div>
-          
-          <div class="tier-content ${tier.collapsed ? 'collapsed' : ''}">
-            <div class="input-group">
-              <label>Nombre del Tier</label>
-              <input type="text" value="${tier.nombre}" 
-                     onchange="actualizarTier(${tier.id}, 'nombre', this.value)">
-            </div>
-            <div class="input-group">
-              <label>Cantidad de Inversionistas</label>
-              <input type="number" min="1" step="1" value="${tier.cantidad}"
-                     onchange="actualizarTier(${tier.id}, 'cantidad', parseInt(this.value) || 1)">
-            </div>
-            <div class="input-group">
-              <label>Inversión Individual ($)</label>
-              <input type="text" class="money-input" value="${tier.monto.toLocaleString('es-CL')}"
-                     data-tier-id="${tier.id}" data-field="monto">
-            </div>
-            <div class="input-group">
-              <label>Mes de Inversión</label>
-              <input type="number" min="0" max="24" step="1" value="${tier.mesInversion}"
-                     class="${mesWarning ? 'warning' : ''}"
-                     onchange="actualizarTier(${tier.id}, 'mesInversion', parseInt(this.value) || 0)">
-            </div>
-            <div class="input-group">
-              <label>Mes Inicio Retornos</label>
-              <input type="number" min="0" max="36" step="1" value="${tier.mesRetornos}"
-                     class="${mesWarning ? 'warning' : ''}"
-                     onchange="actualizarTier(${tier.id}, 'mesRetornos', parseInt(this.value) || 0)">
-              <div class="input-warning-msg ${mesWarning ? 'show' : ''}">
-                Debe ser mayor al mes de inversión
-              </div>
-            </div>
-            <div class="input-group">
-              <label>Tipo de Holder</label>
-              <select onchange="actualizarTier(${tier.id}, 'tipoHolder', this.value)">
-                <option value="persona_natural" ${tier.tipoHolder === 'persona_natural' ? 'selected' : ''}>Persona Natural</option>
-                <option value="empresa" ${tier.tipoHolder === 'empresa' ? 'selected' : ''}>Empresa</option>
-              </select>
-            </div>
-            <div class="input-group">
-              <label>% Retención Impuestos (%)</label>
-              <input type="number" min="0" max="99" step="0.1" value="${tier.retencion}"
-                     onchange="actualizarTier(${tier.id}, 'retencion', parseFloat(this.value) || 0)">
-            </div>
-          </div>
-        `;
-        
-        container.appendChild(tierEl);
+
+      // 2. ✅ PRIMERO: Detectar y cargar datos (ANTES de agregar listeners)
+      detectarYCargarIngresos();
+
+      // 3. ✅ DESPUÉS: Formatear valores iniciales
+      const moneyInputsGlobal = document.querySelectorAll('#ingresoAo1, #ingresoAo2, #ingresoAo3, #ingresoAo4, #ingresoAo5, #ctrlCapitalInicial');
+      moneyInputsGlobal.forEach(input => {
+        const initialValue = cleanNumber(input.value);
+        input.value = initialValue.toLocaleString('es-CL');
       });
-      
-      // Re-aplicar formateo a money inputs
-      attachMoneyInputs();
-    }
-    
-    function attachMoneyInputs() {
-      const moneyInputs = document.querySelectorAll('.money-input[data-tier-id]');
-      
-      moneyInputs.forEach(input => {
-        // Remover listeners anteriores clonando
-        const newInput = input.cloneNode(true);
-        input.parentNode.replaceChild(newInput, input);
-        
-        newInput.addEventListener('input', debounce((e) => {
-          const value = cleanNumber(e.target.value);
-          e.target.value = value.toLocaleString('es-CL');
-          
-          const tierId = e.target.getAttribute('data-tier-id');
-          const field = e.target.getAttribute('data-field');
-          if (tierId && field) {
-            actualizarTier(parseInt(tierId), field, value);
-          }
-        }, 400));
-      });
-    }
-    
-    // ==================== CÁLCULOS MATEMÁTICOS ====================
-    
-    function calcularTIR(flujos, maxIter = 100, tolerancia = 0.0001) {
-      if (flujos.length === 0) return null;
-      
-      let r = 0.1;
-      
-      for (let iter = 0; iter < maxIter; iter++) {
-        let van = 0;
-        let vanDerivada = 0;
-        
-        flujos.forEach(f => {
-          const t = f.mes / 12;
-          van += f.monto / Math.pow(1 + r, t);
-          vanDerivada -= (t * f.monto) / Math.pow(1 + r, t + 1);
-        });
-        
-        if (Math.abs(van) < tolerancia) {
-          return r;
-        }
-        
-        if (vanDerivada === 0) break;
-        
-        r = r - van / vanDerivada;
-        
-        if (r < -0.99) r = -0.99;
-        if (r > 10) r = 10;
-      }
-      
-      return null;
-    }
-    
-    function calcularVAN(flujos, tasaAnual) {
-      let van = 0;
-      flujos.forEach(f => {
-        const t = f.mes / 12;
-        van += f.monto / Math.pow(1 + tasaAnual, t);
-      });
-      return van;
-    }
-    
-    function getIngresoMensual(mes, ingresos) {
-      const año = getAñoFromMes(mes);
-      if (año <= 5) {
-        return ingresos[año - 1];
-      } else {
-        return ingresos[4];
-      }
-    }
-    
-    function getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacion, retencionDec) {
-      const ingreso = getIngresoMensual(mes, ingresos);
-      const utilidadMensual = ingreso * margenNeto;
-      const utilidadDistribuir = utilidadMensual * pctDistribuir;
-      const dividendoBruto = utilidadDistribuir * pctParticipacion;
-      const dividendoNeto = dividendoBruto * (1 - retencionDec);
-      
-      return {
-        bruto: dividendoBruto,
-        neto: dividendoNeto
-      };
-    }
-    
-    // ==================== CÁLCULO PRINCIPAL ====================
-    
-    function calcularTodo() {
-      if (!validarEquity()) {
-        console.warn('Equity inválido');
-        return;
-      }
-      
-      // Obtener inputs
-      const nombreProyecto = document.getElementById('nombreProyecto').value.trim() || 'Proyecto Sin Nombre';
-      document.getElementById('displayNombreProyecto').textContent = nombreProyecto;
-      
-      const pctInversores = parseFloat(document.getElementById('pctInversores').value) / 100 || 0;
-      const pctControlador = parseFloat(document.getElementById('pctControlador').value) / 100 || 0;
-      
-      const ingresos = [
-        cleanNumber(document.getElementById('ingresoAño1').value),
-        cleanNumber(document.getElementById('ingresoAño2').value),
-        cleanNumber(document.getElementById('ingresoAño3').value),
-        cleanNumber(document.getElementById('ingresoAño4').value),
-        cleanNumber(document.getElementById('ingresoAño5').value)
-      ];
-      
-      const margenNeto = parseFloat(document.getElementById('margenNeto').value) / 100 || 0;
-      const pctDistribuir = parseFloat(document.getElementById('pctDistribuir').value) / 100 || 0;
-      
-      const capitalCtrl = cleanNumber(document.getElementById('ctrlCapitalInicial').value);
-      const tipoHolderCtrl = document.getElementById('ctrlTipoHolder').value;
-      const retencionCtrl = parseFloat(document.getElementById('ctrlRetencion').value) / 100 || 0;
-      
-      const tasaDescuento = parseFloat(document.getElementById('tasaDescuento').value) / 100 || 0;
-      
-      // Calcular capital total inversores
-      const capitalTotalInversores = tiers.reduce((sum, t) => sum + (t.monto * t.cantidad), 0);
-      
-      // Calcular resultados por tier
-      const resultadosTiers = tiers.map(tier => {
-        const pctParticipacion = (tier.monto * tier.cantidad / capitalTotalInversores) * pctInversores;
-        const retencionDec = tier.retencion / 100;
-        
-        let detalleMensual = [];
-        let acumuladoNeto = -tier.monto;
-        let mesPayback = null;
-        
-        for (let mes = 1; mes <= 120; mes++) {
-          if (mes < tier.mesRetornos) {
-            detalleMensual.push({
-              mes: mes,
-              añoMes: `Año ${getAñoFromMes(mes)} M${((mes - 1) % 12) + 1}`,
-              bruto: 0,
-              neto: 0,
-              acumulado: acumuladoNeto,
-              esPayback: false
-            });
-            continue;
-          }
-          
-          const div = getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacion, retencionDec);
-          acumuladoNeto += div.neto;
-          
-          const esPayback = mesPayback === null && acumuladoNeto >= 0;
-          if (esPayback) mesPayback = mes;
-          
-          detalleMensual.push({
-            mes: mes,
-            añoMes: `Año ${getAñoFromMes(mes)} M${((mes - 1) % 12) + 1}`,
-            bruto: div.bruto,
-            neto: div.neto,
-            acumulado: acumuladoNeto,
-            esPayback: esPayback
-          });
-        }
-        
-        // Calcular métricas
-        const retornoMensualNeto = detalleMensual.find(d => d.mes === 60)?.neto || 0;
-        const retornoAnualNeto = retornoMensualNeto * 12;
-        const roiAnual = tier.monto > 0 ? (retornoAnualNeto / tier.monto) : 0;
-        
-        // TIR
-        const flujosTIR = [{ mes: tier.mesInversion, monto: -tier.monto }];
-        for (let mes = tier.mesRetornos; mes <= 120; mes++) {
-          const detail = detalleMensual.find(d => d.mes === mes);
-          if (detail) {
-            flujosTIR.push({ mes: mes, monto: detail.neto });
-          }
-        }
-        const tir = calcularTIR(flujosTIR);
-        
-        // VAN
-        const van = calcularVAN(flujosTIR, tasaDescuento);
-        
-        // Validaciones legales
-        const roiIlegal = tier.tipoHolder === 'persona_natural' && roiAnual > 0.5;
-        
-        return {
-          tier: tier,
-          pctParticipacion: pctParticipacion,
-          detalleMensual: detalleMensual,
-          mesPayback: mesPayback,
-          retornoMensualNeto: retornoMensualNeto,
-          retornoAnualNeto: retornoAnualNeto,
-          roiAnual: roiAnual,
-          tir: tir,
-          van: van,
-          roiIlegal: roiIlegal
-        };
-      });
-      
-      // Calcular controlador
-      const pctParticipacionCtrl = pctControlador;
-      const retencionCtrlDec = retencionCtrl;
-      
-      const divCtrlEstable = getDividendoMensual(60, ingresos, margenNeto, pctDistribuir, pctParticipacionCtrl, retencionCtrlDec);
-      const retornoMensualNetoCtrl = divCtrlEstable.neto;
-      const retornoAnualNetoCtrl = retornoMensualNetoCtrl * 12;
-      
-      // TIR y VAN controlador (solo si hay capital inicial)
-      let tirCtrl = null;
-      let vanCtrl = null;
-      if (capitalCtrl > 0) {
-        const flujosTIRCtrl = [{ mes: 0, monto: -capitalCtrl }];
-        for (let mes = 1; mes <= 120; mes++) {
-          const div = getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacionCtrl, retencionCtrlDec);
-          flujosTIRCtrl.push({ mes: mes, monto: div.neto });
-        }
-        tirCtrl = calcularTIR(flujosTIRCtrl);
-        vanCtrl = calcularVAN(flujosTIRCtrl, tasaDescuento);
-      }
-      
-      const valorEmpresa = (ingresos[4] * 12 * margenNeto) / tasaDescuento;
-      const valorParticipacionCtrl = valorEmpresa * pctParticipacionCtrl;
-      
-      // Calcular métricas resumen
-      const capitalLevantado = capitalTotalInversores;
-      const paybackPonderado = resultadosTiers.reduce((sum, r) => {
-        if (r.mesPayback) {
-          return sum + (r.mesPayback * r.tier.monto * r.tier.cantidad);
-        }
-        return sum;
-      }, 0) / capitalLevantado;
-      
-      const roiPromedio = resultadosTiers.reduce((sum, r) => {
-        return sum + (r.roiAnual * r.tier.monto * r.tier.cantidad);
-      }, 0) / capitalLevantado;
-      
-      const tirPromedio = resultadosTiers.reduce((sum, r) => {
-        if (r.tir !== null) {
-          return sum + (r.tir * r.tier.monto * r.tier.cantidad);
-        }
-        return sum;
-      }, 0) / capitalLevantado;
-      
-      const vanTotal = resultadosTiers.reduce((sum, r) => sum + r.van, 0);
-      
-      // Renderizar resultados
-      renderMetricsResumen(capitalLevantado, pctInversores, paybackPonderado, roiPromedio, tirPromedio, vanTotal, valorEmpresa);
-      renderTiersResults(resultadosTiers);
-      renderControladorResults(pctParticipacionCtrl, valorParticipacionCtrl, divCtrlEstable.bruto, retornoMensualNetoCtrl, retornoAnualNetoCtrl, tirCtrl, vanCtrl);
-      renderChart(resultadosTiers, { 
-        ingresos, 
-        margenNeto, 
-        pctDistribuir, 
-        pctParticipacionCtrl, 
-        retencionCtrlDec 
-      }, tasaDescuento);
-    }
-    
-    // ==================== RENDER RESULTADOS ====================
-    
-    function renderMetricsResumen(capitalLevantado, pctInversores, paybackPonderado, roiPromedio, tirPromedio, vanTotal, valorEmpresa) {
-      document.getElementById('metricCapital').textContent = formatMoney(capitalLevantado);
-      document.getElementById('metricCapitalPct').textContent = formatPercent(pctInversores, 1) + ' equity';
-      document.getElementById('metricPayback').textContent = paybackPonderado ? paybackPonderado.toFixed(1) + ' meses' : '—';
-      document.getElementById('metricROI').textContent = formatPercent(roiPromedio, 1);
-      document.getElementById('metricTIR').textContent = tirPromedio ? formatPercent(tirPromedio, 1) : '—';
-      document.getElementById('metricVAN').textContent = formatMoney(vanTotal);
-      document.getElementById('metricValor').textContent = formatMoney(valorEmpresa);
-    }
-    
-    function renderTiersResults(resultadosTiers) {
-      const container = document.getElementById('tiersResultsContainer');
-      container.innerHTML = '';
-      
-      resultadosTiers.forEach((res, index) => {
-        const card = document.createElement('section');
-        card.className = 'result-card';
-        card.setAttribute('data-tier-index', index);
-        
-        const roiIlegalHTML = res.roiIlegal ? 
-          `<div class="card-metric-subtext warning-legal">⚠️ ROI > 50% ilegal persona natural</div>` : '';
-        
-        card.innerHTML = `
-          <div class="card-header">
-            <div class="card-tier-label">${res.tier.nombre}</div>
-            <h2 class="card-title">${res.tier.cantidad}x <span class="amount">${formatMoney(res.tier.monto)}</span> = ${formatMoney(res.tier.monto * res.tier.cantidad)}</h2>
-          </div>
-          
-          <div class="card-grid">
-            <div class="card-metric">
-              <span class="card-metric-label">% Participación</span>
-              <div class="card-metric-value">${formatPercent(res.pctParticipacion, 2)}</div>
-              <div class="card-metric-subtext">Del equity total</div>
-            </div>
-            <div class="card-metric">
-              <span class="card-metric-label">Payback</span>
-              <div class="card-metric-value">${res.mesPayback ? res.mesPayback + ' meses' : 'N/A'}</div>
-              <div class="card-metric-subtext">${res.mesPayback ? 'Año ' + getAñoFromMes(res.mesPayback) : 'No alcanza'}</div>
-            </div>
-            <div class="card-metric">
-              <span class="card-metric-label">Retorno Mensual NETO</span>
-              <div class="card-metric-value highlight">${formatMoney(res.retornoMensualNeto)}</div>
-              <div class="card-metric-subtext">Año 5 estabilizado</div>
-            </div>
-            <div class="card-metric">
-              <span class="card-metric-label">Retorno Anual NETO</span>
-              <div class="card-metric-value highlight">${formatMoney(res.retornoAnualNeto)}</div>
-              <div class="card-metric-subtext">Año 5 estabilizado</div>
-            </div>
-            <div class="card-metric">
-              <span class="card-metric-label">ROI Anual</span>
-              <div class="card-metric-value ${res.roiIlegal ? 'text-warning-legal' : ''}">${formatPercent(res.roiAnual, 1)}</div>
-              ${roiIlegalHTML}
-            </div>
-            <div class="card-metric">
-              <span class="card-metric-label">TIR</span>
-              <div class="card-metric-value">${res.tir !== null ? formatPercent(res.tir, 1) : 'N/A'}</div>
-              <div class="card-metric-subtext">10 años</div>
-            </div>
-            <div class="card-metric">
-              <span class="card-metric-label">VAN</span>
-              <div class="card-metric-value">${formatMoney(res.van)}</div>
-              <div class="card-metric-subtext">Valor creado</div>
-            </div>
-          </div>
-          
-          <div class="detalle-toggle">
-            <button class="btn-toggle-detalle" onclick="toggleDetalle(${res.tier.id})">
-              📋 Ver Detalle Mensual
-            </button>
-            <div class="detalle-content" id="detalle-${res.tier.id}">
-              <table class="detalle-table">
-                <thead>
-                  <tr>
-                    <th>Mes</th>
-                    <th>Período</th>
-                    <th>Dividendo Bruto</th>
-                    <th>Dividendo Neto</th>
-                    <th>Acumulado Neto</th>
-                  </tr>
-                </thead>
-                <tbody id="detalle-tbody-${res.tier.id}"></tbody>
-              </table>
-              <button class="btn-load-more" id="load-more-${res.tier.id}" onclick="loadMoreDetalle(${res.tier.id})">
-                Cargar más meses
-              </button>
-            </div>
-          </div>
-        `;
-        
-        container.appendChild(card);
-      });
-    }
-    
-    function renderControladorResults(pct, valor, retiroBruto, retiroNeto, anualNeto, tir, van) {
-      document.getElementById('ctrlResultPct').textContent = formatPercent(pct, 2);
-      document.getElementById('ctrlResultValor').textContent = formatMoney(valor);
-      document.getElementById('ctrlResultPctSub').textContent = formatPercent(pct, 2) + ' empresa';
-      document.getElementById('ctrlResultRetiroNeto').textContent = formatMoney(retiroNeto);
-      document.getElementById('ctrlResultRetiroBruto').textContent = 'Bruto: ' + formatMoney(retiroBruto);
-      document.getElementById('ctrlResultAnual').textContent = formatMoney(anualNeto);
-      document.getElementById('ctrlResultTIR').textContent = tir !== null ? formatPercent(tir, 1) : 'N/A';
-      document.getElementById('ctrlResultVAN').textContent = van !== null ? formatMoney(van) : 'N/A';
-    }
-    
-    // ==================== DETALLE MENSUAL ====================
-    
-    const detalleState = {};
-    
-    function toggleDetalle(tierId) {
-      const content = document.getElementById('detalle-' + tierId);
-      const isExpanded = content.classList.contains('expanded');
-      
-      if (!isExpanded) {
-        content.classList.add('expanded');
-        if (!detalleState[tierId]) {
-          loadMoreDetalle(tierId);
-        }
-      } else {
-        content.classList.remove('expanded');
-      }
-    }
-    
-    function loadMoreDetalle(tierId) {
-      const tier = tiers.find(t => t.id === tierId);
-      if (!tier) return;
-      
-      // Recalcular para obtener detalleMensual (simplificado)
-      const ingresos = [
-        cleanNumber(document.getElementById('ingresoAño1').value),
-        cleanNumber(document.getElementById('ingresoAño2').value),
-        cleanNumber(document.getElementById('ingresoAño3').value),
-        cleanNumber(document.getElementById('ingresoAño4').value),
-        cleanNumber(document.getElementById('ingresoAño5').value)
-      ];
-      
-      const margenNeto = parseFloat(document.getElementById('margenNeto').value) / 100 || 0;
-      const pctDistribuir = parseFloat(document.getElementById('pctDistribuir').value) / 100 || 0;
-      const pctInversores = parseFloat(document.getElementById('pctInversores').value) / 100 || 0;
-      
-      const capitalTotalInversores = tiers.reduce((sum, t) => sum + (t.monto * t.cantidad), 0);
-      const pctParticipacion = (tier.monto * tier.cantidad / capitalTotalInversores) * pctInversores;
-      const retencionDec = tier.retencion / 100;
-      
-      let detalleMensual = [];
-      let acumuladoNeto = -tier.monto;
-      let mesPayback = null;
-      
-      for (let mes = 1; mes <= 120; mes++) {
-        if (mes < tier.mesRetornos) {
-          detalleMensual.push({
-            mes: mes,
-            añoMes: `Año ${getAñoFromMes(mes)} M${((mes - 1) % 12) + 1}`,
-            bruto: 0,
-            neto: 0,
-            acumulado: acumuladoNeto,
-            esPayback: false
-          });
-          continue;
-        }
-        
-        const div = getDividendoMensual(mes, ingresos, margenNeto, pctDistribuir, pctParticipacion, retencionDec);
-        acumuladoNeto += div.neto;
-        
-        const esPayback = mesPayback === null && acumuladoNeto >= 0;
-        if (esPayback) mesPayback = mes;
-        
-        detalleMensual.push({
-          mes: mes,
-          añoMes: `Año ${getAñoFromMes(mes)} M${((mes - 1) % 12) + 1}`,
-          bruto: div.bruto,
-          neto: div.neto,
-          acumulado: acumuladoNeto,
-          esPayback: esPayback
-        });
-      }
-      
-      // Renderizar tabla
-      const tbody = document.getElementById('detalle-tbody-' + tierId);
-      const loadMoreBtn = document.getElementById(`load-more-${tierId}`);
-      
-      if (!detalleState[tierId]) {
-        detalleState[tierId] = { expanded: true, loaded: 0 };
-      }
-      
-      const start = detalleState[tierId].loaded;
-      const end = Math.min(start + 24, detalleMensual.length);
-      
-      for (let i = start; i < end; i++) {
-        const d = detalleMensual[i];
-        const row = tbody.insertRow();
-        if (d.esPayback) row.className = 'payback-row';
-        
-        row.innerHTML = `
-          <td>${d.mes}</td>
-          <td>${d.añoMes}</td>
-          <td>${formatMoney(d.bruto)}</td>
-          <td>${formatMoney(d.neto)}</td>
-          <td>${formatMoney(d.acumulado)}</td>
-        `;
-      }
-      
-      detalleState[tierId].loaded = end;
-      
-      if (end >= detalleMensual.length) {
-        loadMoreBtn.classList.add('hidden');
-      } else {
-        loadMoreBtn.classList.remove('hidden');
-      }
-    }
-    
-    // ==================== GRÁFICO ====================
-    
-    function renderChart(resultadosTiers, controladorData, tasaDescuento) {
-      const ctx = document.getElementById('vanChart');
-      
-      const trimestres = [];
-      for (let mes = 0; mes <= 120; mes += 3) {
-        trimestres.push(mes);
-      }
-      
-      const datasets = [];
-      
-      resultadosTiers.forEach((res, index) => {
-        const data = trimestres.map(mes => {
-          const flujos = [{ mes: res.tier.mesInversion, monto: -res.tier.monto }];
-          for (let m = res.tier.mesRetornos; m <= mes; m++) {
-            const detail = res.detalleMensual.find(d => d.mes === m);
-            if (detail) {
-              flujos.push({ mes: m, monto: detail.neto });
-            }
-          }
-          return calcularVAN(flujos, tasaDescuento);
-        });
-        
-        const colors = ['#4F46E5', '#0891B2', '#7C3AED', '#DB2777', '#059669'];
-        
-        datasets.push({
-          label: res.tier.nombre,
-          data: data,
-          borderColor: colors[index % colors.length],
-          backgroundColor: 'transparent',
-          borderWidth: 2,
-          tension: 0.3
-        });
-      });
-      
-      if (controladorData) {
-        const dataCtrl = trimestres.map(mes => {
-          const flujos = [{ mes: 0, monto: -cleanNumber(document.getElementById('ctrlCapitalInicial').value) }];
-          for (let m = 1; m <= mes; m++) {
-            const div = getDividendoMensual(m, controladorData.ingresos, controladorData.margenNeto, 
-                                           controladorData.pctDistribuir, controladorData.pctParticipacionCtrl, 
-                                           controladorData.retencionCtrlDec);
-            flujos.push({ mes: m, monto: div.neto });
-          }
-          return calcularVAN(flujos, tasaDescuento);
-        });
-        
-        datasets.push({
-          label: 'Controlador',
-          data: dataCtrl,
-          borderColor: '#047857',
-          backgroundColor: 'transparent',
-          borderWidth: 2,
-          borderDash: [5, 5],
-          tension: 0.3
-        });
-      }
-      
-      if (vanChart) {
-        vanChart.destroy();
-      }
-      
-      vanChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: trimestres.map(m => `M${m}`),
-          datasets: datasets
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                boxWidth: 12,
-                padding: 10,
-                font: { size: 11 }
-              }
-            },
-            tooltip: {
-              backgroundColor: 'rgba(17, 24, 39, 0.95)',
-              titleFont: { size: 12, weight: '600' },
-              bodyFont: { size: 12 },
-              padding: 10,
-              cornerRadius: 4,
-              callbacks: {
-                label: function(context) {
-                  return context.dataset.label + ': ' + formatMoney(context.parsed.y);
-                }
-              }
-            }
-          },
-          scales: {
-            x: {
-              grid: { display: false },
-              ticks: { font: { size: 11 } }
-            },
-            y: {
-              grid: { color: '#F3F4F6' },
-              ticks: { 
-                font: { size: 11 },
-                callback: function(value) {
-                  return '$' + (value / 1000000).toFixed(1) + 'M';
-                }
-              }
-            }
-          }
-        }
-      });
-    }
-    
-    // ==================== EXPORT PDF ====================
-    
-    function exportarPDF() {
-      const nombreProyecto = document.getElementById('nombreProyecto').value.trim() || 'Proyecto';
-      const fecha = new Date().toLocaleDateString('es-CL');
-      
-      const element = document.getElementById('mainContainer');
-      
-      const opt = {
-        margin: 10,
-        filename: `modelo_financiero_${nombreProyecto.replace(/\s+/g, '_')}_${fecha}.pdf`,
-        image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: { 
-          scale: 1.5,
-          useCORS: true,
-          logging: false,
-          width: element.scrollWidth,
-          windowWidth: element.scrollWidth
-        },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
-          orientation: 'portrait',
-          compress: true
-        },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-      
-      html2pdf().set(opt).from(element).save();
-    }
-    
-    // ==================== LIMPIAR ====================
-    
-    function limpiarFormulario() {
-      if (!confirm('¿Seguro que deseas limpiar todos los datos? Esta acción no se puede deshacer.')) {
-        return;
-      }
-      
-      document.getElementById('nombreProyecto').value = '';
-      document.getElementById('pctInversores').value = '48';
-      document.getElementById('pctControlador').value = '52';
-      document.getElementById('ingresoAño1').value = '0';
-      document.getElementById('ingresoAño2').value = '50.000.000';
-      document.getElementById('ingresoAño3').value = '100.000.000';
-      document.getElementById('ingresoAño4').value = '150.000.000';
-      document.getElementById('ingresoAño5').value = '150.000.000';
-      document.getElementById('margenNeto').value = '25';
-      document.getElementById('pctDistribuir').value = '80';
-      document.getElementById('ctrlCapitalInicial').value = '0';
-      document.getElementById('ctrlTipoHolder').value = 'persona_natural';
-      document.getElementById('ctrlRetencion').value = '10';
-      document.getElementById('tasaDescuento').value = '12';
-      
-      tiers = [];
-      nextTierId = 1;
-      agregarTier();
-      
-      calcularTodo();
-    }
-    
-    // ==================== FORMATO INPUTS MONEY ====================
-    
-    function setupMoneyInputs() {
-      const moneyInputs = document.querySelectorAll('.money-input:not([data-tier-id])');
-      
-      moneyInputs.forEach(input => {
-        input.addEventListener('input', debounce((e) => {
-          const value = cleanNumber(e.target.value);
-          e.target.value = value.toLocaleString('es-CL');
+
+      // 4. ✅ FINALMENTE: Agregar listeners (después de formatear y cargar)
+      moneyInputsGlobal.forEach(input => {
+        input.addEventListener('input', debounce(() => {
+          const value = cleanNumber(input.value);
+          input.value = value.toLocaleString('es-CL');
           calcularTodo();
         }, 400));
       });
-    }
-    
-    // ==================== EVENTOS ====================
-    
-    document.getElementById('btnAddTier').addEventListener('click', agregarTier);
-    document.getElementById('btnLimpiar').addEventListener('click', limpiarFormulario);
-    document.getElementById('btnExportar').addEventListener('click', exportarPDF);
-    
-    document.getElementById('pctInversores').addEventListener('input', debounce(calcularTodo, 300));
-    document.getElementById('pctControlador').addEventListener('input', debounce(calcularTodo, 300));
-    document.getElementById('margenNeto').addEventListener('input', debounce(calcularTodo, 300));
-    document.getElementById('pctDistribuir').addEventListener('input', debounce(calcularTodo, 300));
-    document.getElementById('ctrlTipoHolder').addEventListener('change', calcularTodo);
-    document.getElementById('ctrlRetencion').addEventListener('input', debounce(calcularTodo, 300));
-    document.getElementById('tasaDescuento').addEventListener('input', debounce(calcularTodo, 300));
-    
-    document.getElementById('nombreProyecto').addEventListener('input', debounce(() => {
-      const nombre = document.getElementById('nombreProyecto').value.trim() || 'Proyecto Sin Nombre';
-      document.getElementById('displayNombreProyecto').textContent = nombre;
-    }, 300));
-    
-    // ==================== INICIALIZACIÓN ====================
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      // Agregar tier inicial
-      agregarTier();
-      
-      // Setup money inputs
-      setupMoneyInputs();
-      
-      // DETECTAR INGRESOS DESDE CALCULADORA M²
-      detectarYCargarIngresos();
-      
-      // Calcular inicial
+
+      // Validación equity en tiempo real
+      const equityInputs = document.querySelectorAll('#pctInversores, #pctControlador');
+      equityInputs.forEach(input => {
+        input.addEventListener('input', debounce(() => {
+          validarEquity();
+          if (validarEquity()) {
+            calcularTodo();
+          }
+        }, 400));
+      });
+
+      // Auto-cálculo para otros inputs
+      const otherInputs = document.querySelectorAll('input:not(.money-input):not(#pctInversores):not(#pctControlador), select');
+      const debouncedCalc = debounce(calcularTodo, 400);
+      otherInputs.forEach(input => {
+        input.addEventListener('input', debouncedCalc);
+        input.addEventListener('change', debouncedCalc);
+      });
+
+      // Botones
+      document.getElementById('btnAddTier').addEventListener('click', agregarTier);
+      document.getElementById('btnLimpiar').addEventListener('click', limpiarFormulario);
+      document.getElementById('btnExportar').addEventListener('click', exportarPDF);
+
+      // Nombre proyecto
+      document.getElementById('nombreProyecto').addEventListener('input', (e) => {
+        const nombre = e.target.value.trim() || 'Proyecto Sin Nombre';
+        document.getElementById('displayNombreProyecto').textContent = nombre;
+      });
+
+      // 5. ✅ Calcular UNA VEZ al final
       calcularTodo();
     });
-    
   </script>
 
 </body>
